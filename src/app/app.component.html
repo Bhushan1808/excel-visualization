@@ -1,17 +1,13 @@
   Search by single equipment no.
   <input [formControl]="formControl1" type="number" placeholder="1122"/>
-  Search by multiple equipment no.
-  <input [formControl]="formControl2"  type="text" placeholder="1122,3344,4455"/>
+  Search by Material no.
+  <input [formControl]="formControl2"  type="number" placeholder="7755040281"/>
 <button type="click" (click)="submit()"> Fetch details</button>
 <div class="container1" *ngIf="response1">
   <h1>Varex excel</h1>
   <app-table [tableData]="response1"></app-table>
 </div>
-<div class="container2" *ngIf="response2 && response2.length !==0">
-  <h1>SAP Excel</h1>
-  <app-table [tableData]="response2"></app-table>
-</div>
-<div class="container2" *ngIf="response2 && response2.length !==0">
+<div class="container3" *ngIf="response3 && response3.length !==0">
   <h1>Matching Excel</h1>
   <app-table [tableData]="response3"></app-table>
 </div>

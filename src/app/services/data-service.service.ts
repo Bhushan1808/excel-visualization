@@ -19,4 +19,8 @@ export class DataService{
     public getByMultipleEquipmentNo(equipmentNumbers: number[]){
         return this.http.get(`${this.url}multi-eq`, {params: {EquipmentNumber: equipmentNumbers}})
     }
+
+    public getByMaterialNo(materialNumber: number){
+        return this.http.get(`${this.url}sap-material`, {params: {MaterialNumber: materialNumber.toString()}})
+    }
 }
