@@ -1,12 +1,16 @@
   Search by single equipment no.
-  <input [formControl]="formControl1" type="number" placeholder="1122"/>
+  <input [formControl]="formControl2" type="string" placeholder="1122"/>
   Search by Material no.
-  <input [formControl]="formControl2"  type="number" placeholder="7755040281"/>
+  <input [formControl]="formControl3"  type="number" placeholder="7755040281"/>
 <button type="click" (click)="submit()"> Fetch details</button>
 <div class="container1" *ngIf="response1">
   <h1>Varex excel</h1>
-  <app-table [tableData]="response1"></app-table>
+  <app-table [tableData]="response2"></app-table>
 </div>
+<br>
+<h1 *ngIf="listEqs">Eq's List</h1>
+{{listEqs}}
+
 <div class="container3" *ngIf="response3 && response3.length !==0">
   <h1>Matching Excel</h1>
   <app-table [tableData]="response3"></app-table>
