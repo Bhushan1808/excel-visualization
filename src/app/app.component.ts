@@ -49,7 +49,7 @@ export class AppComponent {
       this.response1 = [r]
     });
 
-    this.dataService.getByMultipleEquipmentNoSap(this.value2).subscribe((r: any) => {
+    this.dataService.getByMultipleEquipmentNo(this.value2).subscribe((r: any) => {
       this.response2=r
     });  
     
