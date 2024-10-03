@@ -14,14 +14,22 @@ export class AppComponent {
   public value2!: number[];
   public value3!: number;
 
+  public cb1=true;
+  public cb2=false;
+
   public response1!: Table[];
   public response2!: Table[];
   public response3!: Table[];
+  public response3TempVariable!: Table[];
+
   public listEqs: any;
 
   public formControl1 = new FormControl<number | null>(null)
   public formControl2 = new FormControl<string | null>(null)
   public formControl3 = new FormControl<number| null>(null)
+  public singleSearch = new FormControl<string| null>(null)
+
+  public showSearchBoxForSingleSearch = false;
 
 
   constructor(private dataService: DataService) {}
@@ -44,18 +52,39 @@ export class AppComponent {
   }
 
   submit(){
-    this.dataService.getByEquipmentNo(this.value1).subscribe((r: any) => {
-      if(r.length >= 0){r = r.reverse()[0]}
-      this.response1 = [r]
-    });
-
-    this.dataService.getByMultipleEquipmentNo(this.value2).subscribe((r: any) => {
-      this.response2=r
-    });  
-    
     this.dataService.getByMaterialNo(this.value3).subscribe((r: any) => {
-      this.response3=r
-      this.listEqs = JSON.stringify(r.map((x: any)=>x.EquipmentNumber))
+      this.response3=r;
+      this.response3TempVariable = r;
+      this.listEqs = JSON.stringify(r.map((x: any)=>x.EquipmentNumber));
     });    
   }
+
+  singleMachineSearch(){
+    this.dataService.getByEquipmentNo(this.value1).subscribe((r: any) => {
+      this.response1=r;
+    });    
+
+    this.dataService.getByMultipleEquipmentNoSap([this.value1]).subscribe((r:any)=>{
+      this.value3 = parseInt(r[0].Materialnummer);
+      this.submit();
+    })
+
+    
+  }
+
+  allMachines(){
+    this.cb1 = true;
+    this.response3 = this.response3TempVariable;
+  }
+
+  specificMachine(){
+    this.showSearchBoxForSingleSearch = !this.showSearchBoxForSingleSearch;
+  }
+
+  filterSingleMachine(){
+    this.cb1 = false;
+    this.cb2=true;
+    this.response1 = this.response3.filter((m) =>this.singleSearch.value === m['EquipmentNumber']);
+  }
 }
+

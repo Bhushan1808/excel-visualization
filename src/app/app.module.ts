@@ -7,6 +7,7 @@ import { DataService } from './services/data-service.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TableComponent } from "./components/table-component/table.component";
+import { CheckboxComponent } from "./components/checkbox/checkbox.component";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TableComponent } from "./components/table-component/table.component";
     HttpClientModule,
     ReactiveFormsModule,
     CommonModule,
-    TableComponent
+    TableComponent,
+    CheckboxComponent
 ],
   providers: [DataService],
   bootstrap: [AppComponent]

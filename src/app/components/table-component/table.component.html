@@ -6,8 +6,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let r  of rows">
-                <td *ngFor="let d of r">{{d}}</td>
+            <tr *ngFor="let r  of rows;">
+                <td *ngFor="let d of r; let i =index" [ngStyle]="{ 'background-color': getColor(i, d)}">{{d}}</td>
             </tr>
         </tbody>
     </table>

@@ -1,19 +1,45 @@
-  Search by single equipment no.
-  <input [formControl]="formControl2" type="string" placeholder="1122"/>
-  Search by Material no.
-  <input [formControl]="formControl3"  type="number" placeholder="7755040281"/>
-<button type="click" (click)="submit()"> Fetch details</button>
-<div class="container1" *ngIf="response1">
-  <h1>Varex excel</h1>
-  <app-table [tableData]="response2"></app-table>
-</div>
-<br>
-<h1 *ngIf="listEqs">Eq's List</h1>
-{{listEqs}}
+  <div class="main-frame font">
 
-<div class="container3" *ngIf="response3 && response3.length !==0">
-  <h1>Matching Excel</h1>
-  <app-table [tableData]="response3"></app-table>
-</div>
+    <div class="specific-machine material-no">
+      <input class="search-wuh" [formControl]="formControl1"  type="number" placeholder="EQ no."/>
+      <button class="btn-wuh" type="click" (click)="singleMachineSearch()">Search</button>
+    </div>
+
+    <div class="table-container-1">
+      <h1>Specific Machine</h1>
+      <div class="exel-table" *ngIf="response1 && response1.length !==0">
+        <app-table [tableData]="response1"></app-table>
+      </div>
+    </div>
+
+    <!-- <div class="top-nav">
+      <div class="material-no">
+        <input class="search-wuh" [formControl]="formControl3"  type="number" placeholder="Material no."/>
+        <button class="btn-wuh" type="click" (click)="submit()"> Fetch details</button>
+      </div>
+      <div class="filters">
+        <checkbox [text]="'All Equipment No.'" [checked]="cb1" (checkedChange)="allMachines()"></checkbox>
+        <checkbox [text]="'Specific Equipment No.'" [checked]="cb2" (checkedChange)="specificMachine()"></checkbox>
+      </div>
+    </div> -->
+    <!-- Search by single equipment no.
+    <input class="search-wuh" [formControl]="formControl2" type="string" placeholder="1122"/> -->
+    <!-- <div> Search by Material no.</div> -->
+     
+    <!-- <div class="container1 exel-table" *ngIf="response1">
+      <h1>Varex excel</h1>
+      <app-table [tableData]="response2"></app-table>
+    </div>
+    <br>
+    <h1 *ngIf="listEqs">Eq's List</h1>
+    {{listEqs}} -->
+
+    <div class="table-container">
+      <h1>Matching Excel</h1>
+      <div class="exel-table" *ngIf="response3 && response3.length !==0">
+        <app-table [tableData]="response3" [comparisonTable]="response1[0]"></app-table>
+      </div>
+    </div>
+  </div>
 
 
