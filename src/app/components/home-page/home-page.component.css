@@ -1,0 +1,111 @@
+.main-frame {
+  padding: 30px;
+}
+
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filters {
+  display: flex;
+  gap: 16px;
+}
+
+.btn-wuh {
+  display: inline-flex;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid var(--border-primary, #373a3d);
+  background: var(--button-secondary-hover, #edf0f2);
+  cursor: pointer;
+}
+
+.search-wuh {
+  display: flex;
+  width: 320px;
+  height: 48px;
+  padding: 0px 12px 0px 16px;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  border: 1px solid var(--border-primary, #373a3d);
+  background: var(--layer-white, #fff);
+}
+
+.font {
+  color: var(--Neutral-Colors-Gray-800, #242729);
+  font-feature-settings: "liga" off, "clig" off;
+
+  /* Body L - Regular */
+  font-family: Arial;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px; /* 150% */
+}
+
+.material-no {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.excel-table {
+  background-color: #fff;
+  overflow-x: scroll;
+}
+
+.table-container-1 {
+  width: 100%;
+  height: auto;
+  padding: 10px;
+}
+
+.table-container {
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  overflow: auto;
+}
+
+/* Search container Css */
+input {
+  height: 45px;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid #d0d4d9;
+  border-left: none;
+  padding: 20px;
+}
+
+input[type="text"] {
+  font-size: 16px;
+}
+
+.specific-machine {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.search-btn {
+  font-size: 30px;
+}
+
+/* Heading Css */
+
+.label {
+  text-align: center;
+}
+
+.noDataSection {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 26px;
+}

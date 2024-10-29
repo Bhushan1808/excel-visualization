@@ -1,29 +1,51 @@
-  table {
-    width: 100%;
-    display: table;
-    border-collapse: collapse;
-  
-    th {
-      color: #6f757a;
-      padding: 8px 8px;
-      width: auto;
-    }
-  
-    td {
-      padding: 8px 8px;
-      width: auto;
-      height: auto;
-      flex-direction: column;
-      align-items: flex-start;
-      align-items: center;
-      gap: 16px;
-      border-bottom: 1px solid #e1e3e6;
-      flex: 1;
-    }
-  }
+:host {
+  font-family: Arial;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  font-size: 18px;
+}
 
-  table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-    text-align: center;
-  }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff; /* White background for the table */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border-radius: 8px; /* Rounded corners */
+  overflow: hidden; /* To apply rounded corners on overflow */
+}
+
+th,
+td {
+  padding: 12px 15px;
+  border: 1px solid #d1d9e0; /* Light border that works with #F0F3F5 */
+  text-align: center;
+}
+
+th {
+  background-color: #e3e8ec; /* Slightly darker than #F0F3F5 for headers */
+  font-weight: bold;
+  color: #4a4a4a; /* Dark gray text for better readability */
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+tr:nth-child(even) {
+  background-color: #f9fbfc; /* Very light alternate row color */
+}
+
+td {
+  background-color: #ffffff;
+}
+
+table,
+th,
+td {
+  border: 1px solid #d1d9e0; /* Subtle border color */
+}
+
+tr:hover {
+  background-color: #e8eef3; /* Highlight row on hover */
+}

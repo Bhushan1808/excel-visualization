@@ -8,10 +8,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TableComponent } from "./components/table-component/table.component";
 import { CheckboxComponent } from "./components/checkbox/checkbox.component";
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomePageComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
