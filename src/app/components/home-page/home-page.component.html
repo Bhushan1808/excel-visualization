@@ -53,9 +53,69 @@
 
     <div class="table-container">
       <h1 class="label">Matching Excel</h1>
-      <div class="excel-table" *ngIf="response3 && response3.length !== 0">
+      <div class="dropdown-container">
+        <select
+          class="dropdown"
+          [(ngModel)]="selectedR"
+          (change)="onSelectChange()"
+        >
+          <option [value]="'all'">sps - allgemein</option>
+          <option *ngFor="let item of rDropdown" [value]="item">
+            {{ item }}
+          </option>
+        </select>
+
+        <select
+          class="dropdown"
+          [(ngModel)]="selectedS"
+          (change)="onSelectChange()"
+        >
+          <option [value]="'all'">sps - extruder</option>
+          <option *ngFor="let item of sDropdown" [value]="item">
+            {{ item }}
+          </option>
+        </select>
+
+        <select
+          class="dropdown"
+          [(ngModel)]="selectedT"
+          (change)="onSelectChange()"
+        >
+          <option [value]="'all'">sps - blaskopf</option>
+          <option *ngFor="let item of tDropdown" [value]="item">
+            {{ item }}
+          </option>
+        </select>
+
+        <select
+          class="dropdown"
+          [(ngModel)]="selectedU"
+          (change)="onSelectChange()"
+        >
+          <option [value]="'all'">krob</option>
+          <option *ngFor="let item of uDropdown" [value]="item">
+            {{ item }}
+          </option>
+        </select>
+
+        <select
+          class="dropdown"
+          [(ngModel)]="selectedV"
+          (change)="onSelectChange()"
+        >
+          <option [value]="'all'">abzug</option>
+          <option *ngFor="let item of vDropdown" [value]="item">
+            {{ item }}
+          </option>
+        </select>
+        <div class="reset-button" (click)="resetFilters()">Reset Filters</div>
+      </div>
+      <div
+        class="excel-table"
+        *ngIf="filteredResponse3 && filteredResponse3.length !== 0"
+      >
         <app-table
-          [tableData]="response3"
+          [tableData]="filteredResponse3"
           [comparisonTable]="response1[0]"
         ></app-table>
       </div>

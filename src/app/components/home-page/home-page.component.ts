@@ -14,6 +14,8 @@ export class HomePageComponent {
   public value2!: number[];
   public value3!: number;
 
+  public dropdownOptions = [];
+
   public cb1 = true;
   public cb2 = false;
 
@@ -21,6 +23,18 @@ export class HomePageComponent {
   public response2!: Table[];
   public response3!: Table[];
   public response3TempVariable!: Table[];
+  public rDropdown!: any[];
+  public sDropdown!: any[];
+  public tDropdown!: any[];
+  public uDropdown!: any[];
+  public vDropdown!: any[];
+  public filteredResponse3!: Table[];
+
+  public selectedR: string = 'all';
+  public selectedS: string = 'all';
+  public selectedT: string = 'all';
+  public selectedU: string = 'all';
+  public selectedV: string = 'all';
 
   public listEqs: any;
 
@@ -52,9 +66,43 @@ export class HomePageComponent {
     });
   }
 
+  onSelectChange() {
+    this.filteredResponse3 = this.response3.filter((item) => {
+      return (
+        (this.selectedR === 'all' ||
+          item['sps - allgemein'] === this.selectedR) &&
+        (this.selectedS === 'all' ||
+          item['sps - extruder'] === this.selectedS) &&
+        (this.selectedT === 'all' ||
+          item['sps - blaskopf'] === this.selectedT) &&
+        (this.selectedU === 'all' || item['krob'] === this.selectedU) &&
+        (this.selectedV === 'all' || item['abzug'] === this.selectedV)
+      );
+    });
+  }
+
+  public resetFilters() {
+    this.filteredResponse3 = this.response3;
+  }
+
   submit() {
     this.dataService.getByMaterialNo(this.value3).subscribe((r: any) => {
       this.response3 = r;
+      this.filteredResponse3 = r;
+
+      console.log(this.response3);
+      this.rDropdown = this.getUniqueValues('sps - allgemein');
+      this.sDropdown = this.getUniqueValues('sps - extruder');
+      this.tDropdown = this.getUniqueValues('sps - blaskopf');
+      this.uDropdown = this.getUniqueValues('krob');
+      this.vDropdown = this.getUniqueValues('abzug');
+      console.log(
+        this.rDropdown,
+        this.sDropdown,
+        this.tDropdown,
+        this.uDropdown,
+        this.vDropdown
+      );
       this.response3TempVariable = r;
       this.listEqs = JSON.stringify(r.map((x: any) => x.EquipmentNumber));
     });
@@ -87,6 +135,16 @@ export class HomePageComponent {
     this.cb2 = true;
     this.response1 = this.response3.filter(
       (m) => this.singleSearch.value === m['EquipmentNumber']
+    );
+  }
+
+  private getUniqueValues(property: string): (string | number | null)[] {
+    return Array.from(
+      new Set(
+        this.response3
+          .map((value) => value[property])
+          .filter((value) => value !== null) // Remove null values
+      )
     );
   }
 }
