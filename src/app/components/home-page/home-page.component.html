@@ -22,6 +22,104 @@
     "
     ;
   >
+    <h1 class="label">Matched EQ Numbers</h1>
+    <div
+      class="checkbox-matching-section"
+      style="
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 8px;
+      "
+    >
+      <!-- Checkbox Section -->
+      <div style="flex: 1; max-width: 25%; padding: 10px">
+        <ul
+          style="
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 0;
+            list-style: none;
+            margin: 0;
+          "
+        >
+          <li *ngFor="let item of checkBoxLabel">
+            <div style="display: flex; align-items: center; gap: 10px">
+              <input
+                style="width: 18px; height: 18px; accent-color: #007bff"
+                type="checkbox"
+                [(ngModel)]="item.checked"
+                (ngModelChange)="filterMatchedMachine()"
+              />
+              <div style="font-size: 16px; font-weight: 500; color: #333">
+                {{ item.title }}
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Entries Section -->
+      <div
+        style="
+          flex: 2;
+          max-width: 75%;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 15px;
+          padding: 20px;
+          position: relative;
+          background-color: #fff;
+        "
+      >
+        <!-- Copy All Button positioned at the top-right -->
+        <button
+          (click)="copyContent()"
+          style="
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 14px;
+          "
+        >
+          Copy All
+        </button>
+
+        <!-- Title for Entries -->
+        <div
+          style="font-size: 18px; font-weight: 600; margin-bottom: 10px"
+        ></div>
+
+        <!-- Display Entries in Rows (flexbox) -->
+        <div
+          *ngFor="let data of matchedEQMachineTable"
+          style="
+            background-color: #fff;
+            padding: 12px 16px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            word-break: break-word;
+            font-size: 14px;
+            color: #333;
+            width: fit-content;
+            transition: all 0.3s ease;
+          "
+        >
+          {{ data }}
+        </div>
+      </div>
+    </div>
+
     <div class="table-container-1">
       <h1 class="label">Specific Machine</h1>
       <div class="excel-table" *ngIf="response1 && response1.length !== 0">

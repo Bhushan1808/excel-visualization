@@ -47,6 +47,19 @@
   line-height: 30px; /* 150% */
 }
 
+/* checkbox implementation */
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.checkbox-matching-section {
+  display: flex;
+  flex-direction: row;
+}
+
 .material-no {
   display: flex;
   flex-direction: row;

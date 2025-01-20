@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Table } from '../table-component/table.component';
 import { FormControl } from '@angular/forms';
 import { DataService } from 'src/app/services/data-service.service';
+import { retry } from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
@@ -36,6 +37,8 @@ export class HomePageComponent {
   public selectedU: string = 'all';
   public selectedV: string = 'all';
 
+  public matchedEQMachineTable: any[] = [];
+
   public listEqs: any;
 
   public formControl1 = new FormControl<number | null>(null);
@@ -66,6 +69,18 @@ export class HomePageComponent {
     });
   }
 
+  copyContent() {
+    const content = this.matchedEQMachineTable.join(', '); // Join all entries with a comma
+    navigator.clipboard
+      .writeText(content)
+      .then(() => {
+        alert('Content copied to clipboard!');
+      })
+      .catch((err) => {
+        console.error('Failed to copy content: ', err);
+      });
+  }
+
   onSelectChange() {
     this.filteredResponse3 = this.response3.filter((item) => {
       return (
@@ -85,28 +100,115 @@ export class HomePageComponent {
     this.filteredResponse3 = this.response3;
   }
 
+  public checkBoxLabel = [
+    { title: 'SPS allgemein', checked: false, id: 1 },
+    { title: 'SPS extruder', checked: false, id: 2 },
+    { title: 'SPS blaskopf', checked: false, id: 3 },
+    { title: 'krob', checked: false, id: 4 },
+    { title: 'abzug', checked: false, id: 5 },
+  ];
+
   submit() {
     this.dataService.getByMaterialNo(this.value3).subscribe((r: any) => {
       this.response3 = r;
       this.filteredResponse3 = r;
-
-      console.log(this.response3);
+      this.filteredResponse3 = this.filteredResponse3.filter((value) => {
+        const fieldsToCheck = [
+          'sps - allgemein',
+          'sps - extruder',
+          'sps - blaskopf',
+          'krob',
+          'abzug',
+        ];
+        return fieldsToCheck.some(
+          (field) => value[field] === this.response1[0][field]
+        );
+      });
+      this.response3 = this.filteredResponse3;
       this.rDropdown = this.getUniqueValues('sps - allgemein');
       this.sDropdown = this.getUniqueValues('sps - extruder');
       this.tDropdown = this.getUniqueValues('sps - blaskopf');
       this.uDropdown = this.getUniqueValues('krob');
       this.vDropdown = this.getUniqueValues('abzug');
-      console.log(
-        this.rDropdown,
-        this.sDropdown,
-        this.tDropdown,
-        this.uDropdown,
-        this.vDropdown
-      );
       this.response3TempVariable = r;
       this.listEqs = JSON.stringify(r.map((x: any) => x.EquipmentNumber));
     });
   }
+
+  filterMatchedMachine() {
+    const selectedBox: number[] = [];
+
+    console.log(this.checkBoxLabel);
+    // Collect selected checkboxes
+    this.checkBoxLabel.forEach((check) => {
+      if (check.checked) {
+        selectedBox.push(check.id);
+      }
+    });
+
+    console.log('Selected Checkboxes:', selectedBox);
+
+    // Filter data from response3 based on selected checkboxes using AND operation
+    let filteredData = [...this.response3];
+
+    selectedBox.forEach((id) => {
+      filteredData = filteredData.filter((item3) => {
+        return this.response1.some((item1) => {
+          switch (id) {
+            case 1:
+              return item1['sps - allgemein'] === item3['sps - allgemein'];
+            case 2:
+              return item1['sps - extruder'] === item3['sps - extruder'];
+            case 3:
+              return item1['sps - blaskopf'] === item3['sps - blaskopf'];
+            case 4:
+              return item1['krob'] === item3['krob'];
+            case 5:
+              return item1['abzug'] === item3['abzug'];
+            default:
+              return false;
+          }
+        });
+      });
+    });
+
+    // Assign the filtered data to matchedEQMachineTable
+    this.matchedEQMachineTable = filteredData.map(
+      (value) => value['EquipmentNumber']
+    );
+    console.log(this.matchedEQMachineTable);
+  }
+
+  // Add similar blocks for other checkbox IDs if neede
+  // filterMatchedMachine() {
+  //   const selectedBox: number[] = [];
+  //   this.checkBoxLabel.map((check) => {
+  //     if (check.checked === true && check.id === 1) {
+  //       selectedBox.push(1);
+  //     }
+  //     if (check.checked === true && check.id === 2) {
+  //       selectedBox.push(2);
+  //     }
+  //     if (check.checked === true && check.id === 3) {
+  //       selectedBox.push(3);
+  //     }
+  //     if (check.checked === true && check.id === 4) {
+  //       selectedBox.push(4);
+  //     }
+  //     if (check.checked === true && check.id === 5) {
+  //       selectedBox.push(5);
+  //     }
+  //   });
+  //   selectedBox.map((value) => {
+  //     if (value === 1) {
+  //       this.response1.some((item) =>
+  //         this.response3.map(
+  //           (value) => value['sps - allgemein'] === item['sps - allgemein']
+  //         )
+  //       );
+  //     }
+  //   });
+  // }
 
   singleMachineSearch() {
     this.dataService.getByEquipmentNo(this.value1).subscribe((r: any) => {
